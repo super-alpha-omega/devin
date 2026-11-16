@@ -1,0 +1,172 @@
+<!doctype html>
+
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>BYBIT24 · JavaScript · 24 стратегии</title>
+
+<style>
+
+:root{color-scheme:dark;font:15px 'Segoe UI',sans-serif;background:#0c1422;color:#e9eef7}*{box-sizing:border-box}body{margin:0;padding:28px 20px}main{max-width:1120px;margin:auto}header{display:flex;justify-content:space-between;align-items:center;gap:18px;margin-bottom:22px}h1{font-size:26px;margin:0 0 8px}h2{font-size:19px;margin:0 0 15px}p{line-height:1.6;color:#adbdd2}.badge{background:#253a55;border-radius:24px;padding:10px 17px;white-space:nowrap}.card{background:#172438;border:1px solid #30415a;border-radius:16px;padding:24px;margin:18px 0}.buttons{display:flex;gap:10px;flex-wrap:wrap}button{font:inherit;cursor:pointer;border:1px solid #42618b;border-radius:9px;padding:11px 20px;background:#263d5d;color:white}button.primary{background:#477ff0;border-color:#477ff0}button.start{background:#187348;border-color:#32895c}button.stop{background:#963c49;border-color:#bb5360}button:disabled{opacity:.45;cursor:default}.muted{font-size:13px;color:#a0b2c9}.error{color:#ffb0af}.ok{color:#a5e7bc}.result{min-height:27px;margin:12px 0 0;white-space:pre-wrap}.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.metric{background:#0e192b;border:1px solid #30415a;border-radius:11px;padding:16px}.metric small{display:block;color:#9eb0c8;margin-bottom:9px}.metric strong{font-size:21px}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:15px}label{display:block;margin:13px 0 7px}input,select{width:100%;background:#0e192b;border:1px solid #4a5d77;border-radius:8px;color:white;padding:10px;font:inherit}input[type=checkbox]{width:17px;height:17px}.check{display:flex;align-items:center;gap:10px}summary{cursor:pointer;font-weight:600}.table-wrap{overflow:auto}table{width:100%;border-collapse:collapse;text-align:left;font-size:13px}th{color:#a0b2c9;font-weight:500}td,th{padding:12px 10px;border-bottom:1px solid #30415a;white-space:nowrap}pre{margin:0;white-space:pre-wrap;font:12px/1.65 Consolas,monospace;max-height:260px;overflow:auto}.group{padding:12px 0;border-bottom:1px solid #30415a}.group:last-child{border:0}#waiting{overflow-wrap:anywhere}#state{font-weight:650;color:#d9e8ff}@media(max-width:700px){header{display:block}.badge{display:inline-block;margin-top:10px}.metrics{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}.card{padding:18px}.buttons button{flex:1}body{padding:20px 12px}}
+
+
+
+:root{color-scheme:dark;--bg:#0c111b;--panel:#141c29;--line:#273243;--muted:#91a0b5;--text:#edf2fa;--green:#62ddb3;--red:#ff7e8e;--blue:#6599ff}*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 90% 0%,#17253c 0,transparent 42%),var(--bg);color:var(--text);font:14px "Segoe UI",Arial,sans-serif}main{max-width:1220px;margin:auto;padding:30px 32px 20px}header,.brand,.actions,.heading,.section-title,.row,footer{display:flex;align-items:center;justify-content:space-between}.brand{gap:12px}.logo{display:grid;place-items:center;width:42px;height:42px;border-radius:13px;background:#6599ff;color:#091425;font-size:29px;font-weight:700}.brand b{font-size:14px;letter-spacing:1.6px}.brand small{display:block;color:var(--muted);margin-top:4px}.actions{gap:10px}button{border:1px solid var(--line);background:#1a2535;color:var(--text);border-radius:9px;padding:11px 19px;font:600 13px "Segoe UI",sans-serif;cursor:pointer}.primary{background:var(--blue);border-color:var(--blue);color:#08162c}button:disabled{opacity:.4;cursor:not-allowed}button:focus-visible{outline:3px solid #bfd4ff;outline-offset:2px}.status{font-size:12px;color:var(--muted);margin-right:9px}.heading{margin:45px 0 29px;gap:20px}.eyebrow{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--blue)}h1{font-size:34px;letter-spacing:-1px;margin:11px 0 8px;font-weight:650}p{color:var(--muted);margin:0;line-height:1.6}.refresh{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:12px;white-space:nowrap}.dot{height:6px;width:6px;background:var(--green);border-radius:50%}nav{display:flex;gap:5px;border-bottom:1px solid var(--line);padding-bottom:12px}.tab{background:none;border-color:transparent;border-radius:8px;color:var(--muted);padding:12px 18px}.tab span{font-weight:400;font-size:12px;margin-left:7px}.tab.active{background:#263b59;color:#d2e2ff}.notice{margin:18px 0 22px;background:#14283b;color:#adc9e7;border:1px solid #29445e;border-radius:9px;padding:12px 15px;font-size:12px;line-height:1.7}.notice.warn{background:#2c2418;border-color:#51422b;color:#e5c690}#action-message{color:var(--muted);font-size:12px;line-height:1.7;margin-bottom:12px}#action-message:empty{display:none}.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px}.card,.surface{background:linear-gradient(145deg,#182232,var(--panel));border:1px solid var(--line);border-radius:13px}.card{padding:22px}.card>span{display:block;color:#b4c0d1;font-size:12px}.card strong{display:block;font-size:26px;letter-spacing:-.6px;margin:15px 0 8px;font-weight:650;font-variant-numeric:tabular-nums;white-space:nowrap}.card small{color:var(--muted);font-size:11px}.positive{color:var(--green)!important}.negative{color:var(--red)!important}.layout{display:grid;grid-template-columns:1fr 270px;gap:18px;margin-bottom:18px}.chart-panel{padding:22px}.section-title{gap:15px;margin-bottom:18px}h2{font-size:15px;margin:0 0 5px;font-weight:600}.section-title p{font-size:11px}.pill{background:#213047;color:#a8bbd4;font-size:11px;padding:6px 10px;border-radius:20px;white-space:nowrap}.chart-panel svg{width:100%;height:190px;display:block}.overview{padding:26px}.overview>strong{display:block;font-size:42px;font-weight:500;margin-top:15px;letter-spacing:-1px}.overview>p{font-size:12px}.divider{height:1px;background:var(--line);margin:23px 0 18px}.row{font-size:11px;margin-top:15px;gap:15px}.row span{color:var(--muted)}.row b{font-weight:500;text-align:right}.table-panel{padding:22px;margin-bottom:18px}.table-scroll{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap;text-align:left}th{font-weight:500;color:var(--muted);font-size:11px;padding:11px 12px;background:#101925}td{padding:17px 12px;border-bottom:1px solid #243041;font-variant-numeric:tabular-nums}td b{font-size:13px;font-weight:600}td small{color:var(--muted);display:block;margin-top:4px;font-size:10px}th:last-child,td:last-child{text-align:right}.direction{padding:5px 8px;border-radius:5px;background:#1d3433;color:#8be3c7;font-size:10px}.direction.sell{background:#34262e;color:#ffadba}.empty{text-align:center!important;color:var(--muted);padding:32px!important;white-space:normal}.footnote{font-size:10px;margin-top:14px;color:#8393aa;line-height:1.6}footer{color:#64758e;font-size:10px;gap:20px;padding:10px 2px 0}@media(max-width:1000px){.cards{grid-template-columns:repeat(2,1fr)}.layout{grid-template-columns:1fr 230px}.card strong{font-size:25px}.heading{align-items:flex-start}}@media(max-width:700px){main{padding:20px 15px}.heading{display:block;margin-top:32px}h1{font-size:28px}.refresh{margin-top:16px}.actions .status{display:none}.brand small{display:none}.brand b{font-size:11px;letter-spacing:1px}.logo{width:34px;height:34px}.actions{gap:5px}.actions button{padding:9px 11px}.tab{padding:10px}.tab span{display:none}.layout{grid-template-columns:1fr}.overview{display:none}.cards{gap:9px}.card{padding:17px 13px}.card strong{font-size:21px}.table-panel{padding:17px 12px}footer{display:block;line-height:1.8}}
+
+
+
+@media(max-width:700px){.actions{flex-wrap:wrap;max-width:155px}.actions .status{display:block;width:100%;order:3;text-align:right;margin:0;font-size:10px}.overview{display:block;padding:20px}.overview>strong{font-size:32px}}
+
+
+
+.cohort-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0}.cohort-tabs .active{background:#263b59}html{overflow-y:scroll;scrollbar-width:auto}::-webkit-scrollbar{width:16px;height:16px}::-webkit-scrollbar-thumb{background:#71839d;border:3px solid #141c29;border-radius:8px}::-webkit-scrollbar-track{background:#141c29}
+
+
+
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:12px 0 18px}.metric{background:linear-gradient(145deg,#182232,var(--panel));border:1px solid var(--line);border-radius:13px;padding:17px}.metric small{display:block;color:var(--muted);font-size:11px}.metric strong{display:block;font-size:25px;margin-top:12px;font-variant-numeric:tabular-nums}.card{margin:14px 0;padding:20px}.card h2{font-size:17px;margin-bottom:14px}.table-wrap{overflow:auto}td{padding:11px 10px}.badge{background:#213047;border-radius:20px;color:#b6cae4;padding:9px 14px;font-size:12px}.buttons{display:flex;gap:9px;flex-wrap:wrap}.start{background:#1d443a;border-color:#306a58;color:#a5e7c6}.stop{background:#402934;border-color:#714252;color:#ffc0cb}.muted{color:var(--muted);font-size:12px}.error{color:var(--red)}.ok{color:var(--green)}label{display:block;margin:13px 0 7px;color:#b7c7dd}input,select{width:100%;background:#0e192b;border:1px solid #3b506c;border-radius:8px;color:var(--text);padding:10px;font:inherit}input[type=checkbox]{width:17px;height:17px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}.check{display:flex;align-items:center;gap:10px}summary{cursor:pointer;font-weight:600}.result{min-height:23px;margin-top:10px;white-space:pre-wrap}.group{padding:10px 0;border-bottom:1px solid var(--line)}pre{white-space:pre-wrap;font:12px/1.65 Consolas,monospace;max-height:260px;overflow:auto}#waiting{margin:8px 0 15px;padding:12px 15px;border:1px solid #51422b;background:#2c2418;color:#e5c690;border-radius:9px}#heartbeat{margin-top:10px;font-size:11px}.heading{margin:25px 0 18px}h1{font-size:27px;margin:7px 0}.table-panel{padding:17px}#strategy-table-note{margin-bottom:14px}@media(max-width:700px){.metrics,.grid{grid-template-columns:1fr 1fr}header{flex-wrap:wrap}.card{padding:16px}.metric strong{font-size:21px}.grid{grid-template-columns:1fr}}
+
+
+
+#group-stats td:nth-child(2),#strategy-stats td:nth-child(2){white-space:normal;max-width:250px;line-height:1.6}#market-stats td:nth-child(2){white-space:normal;min-width:120px}
+
+
+
+#net.pnl-positive,td.pnl-positive{color:#69e6ac!important}#net.pnl-negative,td.pnl-negative{color:#ff7b86!important}
+
+</style></head><body><main>
+
+<header><div><h1>BYBIT24 · JavaScript · 24 стратегии</h1><span class="muted">8 групп · 24 стратегии · Spot / Margin / Futures · Самовосстановление</span></div><span class="badge" id="mode-badge">Режим REAL</span></header>
+
+<div class="heading"><div><span class="eyebrow">ПРИБЫЛЬ И УБЫТОК</span><h1>Всё о ваших позициях.</h1><p>Группы, стратегии и собственные сделки — на одном экране.</p></div><span class="pill">8 групп · 24 стратегии</span></div>
+
+<section class="card"><h2>Запуск и обзор</h2><p id="state">Подключаемся к локальному боту…</p>
+
+<div class="buttons"><button id="refresh" type="button">Обновить</button><button id="start" class="start" type="button" disabled>▶ Старт</button><button id="stop" class="stop" type="button" disabled>■ Стоп</button></div>
+
+<p class="muted">«Старт» подключает бота, сверяет счёт и включает поиск сделок. «Стоп» завершает торговый процесс без отмены ордеров и закрытия позиций. Текущий запрос может завершиться до остановки. Закрытие вкладки не останавливает бота.</p>
+
+<div id="result" class="result" role="status"></div><p class="muted" id="heartbeat">Торговый цикл ещё не запускался.</p></section>
+
+<div class="metrics"><div class="metric"><small>Equity · USDT</small><strong id="equity">—</strong></div><div class="metric"><small>Позиции бота</small><strong id="positions">0</strong></div><div class="metric"><small>Проверено пар / интервалов</small><strong id="scans">0</strong></div><div class="metric"><small>Чистый результат · USDT</small><strong id="net">0</strong></div></div>
+
+<section class="card"><h2>Что делает бот сейчас</h2><p id="waiting">Остановлен. Настройте ключи и нажмите «Старт».</p><div class="grid"><p class="muted" id="scanner">Сканер ещё не запускался.</p><p class="muted" id="models">Обучение ещё не запускалось.</p></div><details><summary>Почему не открываются сделки</summary><p class="muted">Сделка допускается только при наличии сигнала стратегии, свободных средств и выполнении лимитов риска. Ожидание сигнала нормально; запущенный процесс сам по себе не означает, что сделки открываются.</p><pre id="rejects">Нет отклонённых кандидатов.</pre></details></section>
+
+<section class="card table-panel"><div class="section-title"><div><h2>Торговля по рынкам</h2><p>Рынки видны до первых сделок. «Включён» означает настройку, а не наличие открытых позиций.</p></div><span class="pill">Отдельный учёт</span></div><div class="table-wrap"><table><thead><tr><th>Рынок</th><th>Состояние</th><th>Открыто</th><th>Закрыто</th><th>Прибыльные</th><th>Убыточные</th><th>Результат, USDT</th></tr></thead><tbody id="market-stats"></tbody></table></div><nav class="cohort-tabs" aria-label="Рынок статистики"><button id="market-all" type="button" class="active">Все рынки</button><button id="market-spot" type="button">Спот</button><button id="market-linear" type="button">USDT-фьючерсы</button><button id="market-derivatives" type="button">Деривативы · USDT-фьючерсы</button><button id="market-inverse" type="button">Обратные контракты</button><button id="market-margin" type="button">Маржа</button></nav></section>
+
+<section class="card"><div class="section-title"><div><h2>70% прибыли → счёт Funding</h2><p id="funding-note"></p></div><span class="pill" id="funding-status">Проверяем настройку</span></div><p id="funding-detail" class="muted"></p></section>
+
+<section class="card"><h2>Группы и стратегии</h2><p id="strategy-table-note" class="muted"></p><div class="table-wrap"><table><thead><tr><th>Группа</th><th>Рынок</th><th>Открыто</th><th>Закрыто</th><th>Прибыльные</th><th>Убыточные</th><th>Результат, USDT</th></tr></thead><tbody id="group-stats"></tbody></table></div><h2 style="margin-top:24px">Все 24 стратегии</h2><div class="table-wrap"><table><thead><tr><th>Группа / стратегия</th><th>Рынок</th><th>Открыто</th><th>Закрыто</th><th>Прибыльные</th><th>Убыточные</th><th>Результат, USDT</th></tr></thead><tbody id="strategy-stats"></tbody></table></div></section>
+
+<section class="card"><h2>Позиции этого бота</h2><div class="table-wrap"><table><thead><tr><th>Пара / рынок</th><th>Плечо входа</th><th>Интервал</th><th>Стратегия</th><th>Сторона / объём</th><th>Сумма входа, USDT</th><th title="Расчёт: номинал/плечо, без комиссий; при общей марже не отдельный биржевой залог">Обеспечение ≈, USDT</th><th>Цена входа</th><th>SL</th><th>TP</th><th>Состояние</th></tr></thead><tbody id="trades"><tr><td colspan="9">Нет открытых позиций в журнале.</td></tr></tbody></table></div></section>
+
+<section class="card"><details id="settings"><summary>Подключение и настройки</summary><form id="config-form"><div class="grid"><div><label for="mode">Режим</label><select id="mode"><option>REAL</option><option>DEMO</option></select></div><div><label>Ключи выбранного режима</label><p class="muted" id="key-status">Проверяем…</p></div><div><label for="key">API Key</label><input id="key" type="password" autocomplete="off" placeholder="Пусто = оставить сохранённый"></div><div><label for="secret">API Secret</label><input id="secret" type="password" autocomplete="new-password" placeholder="Пусто = оставить сохранённый"></div><div><label for="risk_percent">Риск сделки, % equity</label><input id="risk_percent" type="number" min="0.01" max="100" step="0.01" required></div><div><label for="portfolio_risk_percent">Общий риск, % equity</label><input id="portfolio_risk_percent" type="number" min="0.01" max="100" step="0.01" required></div><div><label for="daily_loss_percent">Дневной лимит снижения equity, %</label><input id="daily_loss_percent" type="number" min="0.01" max="100" step="0.01" required></div><div><label for="max_positions">Максимум позиций (0 — без лимита)</label><input id="max_positions" type="number" min="0" max="100" required></div><div><label for="per_strategy_positions">Позиции стратегии (0 — без лимита)</label><input id="per_strategy_positions" type="number" min="0" max="100" required></div><div><label for="max_notional_percent">Максимальный номинал сделки, % equity</label><input id="max_notional_percent" type="number" min="0.01" max="100" step="0.01" required></div><div><label for="breakeven_at_r">Безубыток после прибыли, R</label><input id="breakeven_at_r" type="number" min="0.01" step="0.01" required></div><div><label for="slippage_percent">Запас проскальзывания, %</label><input id="slippage_percent" type="number" min="0" max="9.99" step="0.01" required></div></div><label class="check"><input id="auto-resume" type="checkbox">Продолжать после аварийного перезапуска и входа в Windows</label><p class="muted">Кнопка «Стоп» отменяет автоматическое продолжение до следующего ручного старта. Ключи остаются на этом компьютере. Права вывода средств не нужны; переводы прибыли требуют отдельного разрешения Bybit. Цель TP — не менее 3R с расчётом издержек; фактический результат не гарантирован.</p><button class="primary" id="save" type="submit">Сохранить настройки</button></form></details></section>
+
+<section class="card"><details><summary>8 групп стратегий</summary><div id="groups" class="muted">Данные появятся после подключения.</div></details></section>
+
+<section class="card"><h2>Журнал работы</h2><pre id="logs">Бот не запускался.</pre></section>
+
+<p class="muted">Бот работает в фоне под супервизором: при сбоях связи, ошибках API и падениях процесса он восстанавливается сам. Первое обучение может занять время. Панель показывает фактические проверки, причины отказов и подтверждённые результаты, без обещаний прибыли.</p>
+
+</main><script>
+
+'use strict';const $=id=>document.getElementById(id);const fields=['risk_percent','portfolio_risk_percent','daily_loss_percent','max_positions','per_strategy_positions','max_notional_percent','breakeven_at_r','slippage_percent'];let loaded=false,busy=false,last=null,refreshing=false,connectionLost=false;
+
+async function request(path,body){let r;try{r=await fetch(path,{method:body?'POST':'GET',credentials:'same-origin',cache:'no-store',headers:body?{'Content-Type':'application/json'}:{},body:body?JSON.stringify(body):undefined,signal:AbortSignal.timeout(20000)})}catch(e){throw Error('Панель временно недоступна. Соединение проверяется автоматически.')}const d=await r.json();if(!r.ok||d.ok===false)throw Error(d.error||'Ошибка панели');return d}
+
+function message(text,error=false){$('result').textContent=text;$('result').className='result '+(error?'error':'ok')}
+
+function cell(tr,text){const td=document.createElement('td');td.textContent=text??'—';tr.append(td)}
+
+const STRATEGY_CATALOGUE={"groups": [{"id": "G1", "name": "Спот · тренд", "markets": ["Спот"]}, {"id": "G2", "name": "USDT-фьючерсы · тренд и пробой", "markets": ["USDT-фьючерсы"]}, {"id": "G3", "name": "Деривативы USDT · возврат", "markets": ["Деривативы · USDT-фьючерсы"]}, {"id": "G4", "name": "Маржа · объём", "markets": ["Маржа"]}, {"id": "G5", "name": "Спот · сигналы", "markets": ["Спот"]}, {"id": "G6", "name": "USDT-фьючерсы · импульс", "markets": ["USDT-фьючерсы"]}, {"id": "G7", "name": "Деривативы USDT · переключение", "markets": ["Деривативы · USDT-фьючерсы"]}, {"id": "G8", "name": "Маржа · разворот", "markets": ["Маржа"]}], "strategies": [{"id": "sma_cross", "name": "SMA20/50 cross", "group": "G1", "markets": ["Спот"]}, {"id": "trend_pullback", "name": "EMA trend pullback", "group": "G1", "markets": ["Спот"]}, {"id": "volume_momentum", "name": "ATR + volume impulse", "group": "G1", "markets": ["Спот"]}, {"id": "ema_cross", "name": "EMA20/50 cross", "group": "G2", "markets": ["USDT-фьючерсы"]}, {"id": "adx_trend", "name": "ADX14 trend confirmation", "group": "G2", "markets": ["USDT-фьючерсы"]}, {"id": "donchian20", "name": "Donchian20 breakout", "group": "G2", "markets": ["USDT-фьючерсы"]}, {"id": "bollinger_reversion", "name": "Bollinger20 re-entry", "group": "G3", "markets": ["Деривативы · USDT-фьючерсы"]}, {"id": "rsi_reversal", "name": "RSI14 30/70 exit", "group": "G3", "markets": ["Деривативы · USDT-фьючерсы"]}, {"id": "stochastic_reversal", "name": "Stochastic14 reversal", "group": "G3", "markets": ["Деривативы · USDT-фьючерсы"]}, {"id": "vwap_reclaim", "name": "Rolling VWAP20 reclaim", "group": "G4", "markets": ["Маржа"]}, {"id": "obv_breakout", "name": "OBV20 breakout", "group": "G4", "markets": ["Маржа"]}, {"id": "mfi_reversal", "name": "MFI14 20/80 exit", "group": "G4", "markets": ["Маржа"]}, {"id": "macd_cross", "name": "MACD12/26/9 cross", "group": "G5", "markets": ["Спот"]}, {"id": "ichimoku", "name": "Ichimoku9/26/52 cloud breakout", "group": "G5", "markets": ["Спот"]}, {"id": "engulfing", "name": "Engulfing reversal", "group": "G5", "markets": ["Спот"]}, {"id": "donchian55", "name": "Donchian55 breakout", "group": "G6", "markets": ["USDT-фьючерсы"]}, {"id": "keltner", "name": "Keltner20 x2 breakout", "group": "G6", "markets": ["USDT-фьючерсы"]}, {"id": "roc_momentum", "name": "ROC12 zero crossing", "group": "G6", "markets": ["USDT-фьючерсы"]}, {"id": "supertrend", "name": "Supertrend10 x3 flip", "group": "G7", "markets": ["Деривативы · USDT-фьючерсы"]}, {"id": "psar_flip", "name": "Parabolic SAR flip", "group": "G7", "markets": ["Деривативы · USDT-фьючерсы"]}, {"id": "bollinger_squeeze", "name": "Bollinger squeeze breakout", "group": "G7", "markets": ["Деривативы · USDT-фьючерсы"]}, {"id": "cci_reversal", "name": "CCI20 +/-100 exit", "group": "G8", "markets": ["Маржа"]}, {"id": "williams_reversal", "name": "Williams14 -80/-20 exit", "group": "G8", "markets": ["Маржа"]}, {"id": "aroon_cross", "name": "Aroon25 cross", "group": "G8", "markets": ["Маржа"]}]};
+
+
+
+
+
+let selectedMarket='all';
+
+function showMarketOverview(d){
+
+ const a=d.strategy_dashboard;const names={spot:'Спот',linear:'USDT-фьючерсы',inverse:'Обратные контракты',margin:'Маржа',derivatives:'Деривативы · USDT-фьючерсы'};
+
+ const list=a?.markets||Object.entries(names).map(([id,name])=>({id,name,enabled:(d.config?.markets||[]).includes(id),status:'Статус настроек ожидает обновления'}));
+
+ const b=document.getElementById('market-stats');b.replaceChildren();
+
+ for(const r of list){const tr=document.createElement('tr');for(const v of [r.name,r.status,r.open??'—',r.closed??'—',r.wins??'—',r.losses??'—',r.net===null?'Не подтверждён':r.net===undefined?'—':Number(r.net).toLocaleString('ru-RU',{minimumFractionDigits:2,maximumFractionDigits:6})])cell(tr,v);if(r.net!==null&&r.net!==undefined)tr.lastChild.className=Number(r.net)<0?'pnl-negative':'pnl-positive';b.append(tr)}
+
+ for(const id of ['all',...Object.keys(names)]){const button=document.getElementById('market-'+id);const enabled=id==='all'||list.some(r=>r.id===id&&r.enabled);button.disabled=!enabled;button.className=id===selectedMarket?'active':'';button.onclick=()=>{selectedMarket=id;showStrategyTables(last)}}
+
+ const f=d.funding_transfer;document.getElementById('funding-status').textContent=f?.state||'Статус ожидает обновления';document.getElementById('funding-note').textContent=f?.note||'Реальный перевод не включается отображением этой панели.';document.getElementById('funding-detail').textContent=f?'Настройка: '+(f.enabled?'включено':'выключено')+' · Исполнение сейчас: '+(f.active?'активно при выполнении условий':'не выполняется')+' · Подтверждено этим ботом: '+(f.paid||'0')+' USDT · В резерве: '+(f.reserved||'0')+' USDT'+(f.pending?' · Есть ранее отправленный перевод, ожидаем подтверждение.':''):'';
+
+}
+
+
+
+function showStrategyTables(d){
+
+ showMarketOverview(d);
+
+ const base=d.strategy_dashboard;const ready=base&&base.available;const a=ready&&selectedMarket!=='all'&&base.by_market?.[selectedMarket]?{...base,...base.by_market[selectedMarket]}:base;const cat=STRATEGY_CATALOGUE;
+
+ const active=d.health?.positions||[];
+
+ const gs=ready?a.groups:cat.groups.map(g=>({...g,open:active.filter(p=>cat.strategies.some(s=>s.group===g.id&&s.id===p.strategy)).length}));
+
+ const ss=ready?a.strategies:cat.strategies.map(s=>({...s,open:active.filter(p=>p.strategy===s.id&&p.phase==='open').length}));
+
+ const state=document.getElementById('strategy-table-note');state.textContent=ready?(selectedMarket==='all'?'Все включённые рынки. ':({spot:'Спот. ',linear:'USDT-фьючерсы. ',inverse:'Обратные контракты. ',derivatives:'Деривативы · USDT-фьючерсы. ',margin:'Маржа. '}[selectedMarket]||''))+'Только собственная история '+a.mode+' текущего журнала. Итог — закрытые сделки после расходов. Внешние позиции исключены.':(a?.error||'Таблицы готовы; для статистики журнала применяется обновление панели. Внешние позиции исключены.');
+
+ function render(id,list,strategies){const body=document.getElementById(id);body.replaceChildren();for(const r of list){const tr=document.createElement('tr');const label=strategies?r.group+' · '+r.name:r.id+' · '+r.name;const vals=[label,(r.markets||[]).join(', ')||'—',r.open??'—',ready?r.closed:'—',ready?r.wins:'—',ready?r.losses:'—',ready?Number(r.net).toLocaleString('ru-RU',{minimumFractionDigits:2,maximumFractionDigits:6}):'—'];for(const v of vals)cell(tr,v);const n=Number(r.net||0);tr.lastChild.className=ready&&r.net!==null?(n<0?'pnl-negative':'pnl-positive'):'';if(r.pending)tr.children[2].textContent+=' (сверка: '+r.pending+')';body.append(tr)}}
+
+ function marketOrder(r){const m=(r.markets||[]).join(' ');return m.startsWith('Спот')?0:m.startsWith('USDT')?1:m.startsWith('Деривативы')?2:m.startsWith('Маржа')?3:4}
+
+ const displayOrder=(a,b)=>marketOrder(a)-marketOrder(b)||String(a.group||a.id).localeCompare(String(b.group||b.id),'ru',{numeric:true});
+
+ render('group-stats',[...gs].sort(displayOrder),false);render('strategy-stats',[...ss].sort(displayOrder),true);
+
+}
+
+
+
+function show(d){last=d;showStrategyTables(d);const h=d.health||{};$('state').textContent=d.mode+' · '+d.state;$('mode-badge').textContent='Режим '+d.mode;$('equity').textContent=h.equity==null?'—':Number(h.equity).toFixed(2);$('positions').textContent=(h.positions||[]).length;$('scans').textContent=h.scans||0;const net=Number(h.total_net);$('net').textContent=h.total_net==null?'Не подтверждён':net.toLocaleString('ru-RU',{minimumFractionDigits:2,maximumFractionDigits:6});$('net').className=Number.isFinite(net)?(net<0?'pnl-negative':'pnl-positive'):'';$('heartbeat').textContent=d.running?(d.heartbeat_age===null?'Подключение: ждём первую успешную итерацию.':'Последняя успешная итерация: '+d.heartbeat_age+' с назад.'):'Торговый процесс завершён.';
+
+ $('waiting').textContent=d.fault||h.halt||(h.external_account?.admission_verified?'Старые позиции остаются у прежнего владельца. Их риск зарезервирован: '+Number(h.external_risk||0).toFixed(4)+' USDT. Прежний бот на паузе для новых входов. Поиск новых сделок разрешён только в оставшихся лимитах.':h.external_account?'Защитная пауза: '+(h.external_account.verification_error||('Чужие позиции: '+(h.external_account.positions||[]).map(p=>p.symbol).join(', ')+'; ордеров: '+(h.external_account.orders||[]).length+'; монет с долгом: '+(h.external_account.debt_coins||[]).join(', ')))+'. Новые входы выключены до подтверждения безопасности.':null)||(d.running?(h.waiting||'Подключение и проверка счёта…'):'Остановлен. Для торговли нажмите «Старт».');if(d.running&&h.entries_enabled&&!h.halt&&!d.fault){$('waiting').textContent='Поиск сделок работает.'+(h.waiting?' Последний отказ одному кандидату: '+h.waiting:' Ожидаем подходящий сигнал.');}$('scanner').textContent='Инструментов: '+(h.instruments||0)+' · сигналов: '+(h.signals||0)+' · кандидатов: '+(h.candidates||0)+(h.last_scan?' · последняя проверка: '+h.last_scan:'');$('models').textContent=d.config?.ai_entry_filter_enabled===false?'Входы: правила бота. Вето ИИ выключено.':'Готовых моделей: '+(h.models_ready||0)+(h.training?' · обучение: '+h.training:' · активного обучения нет');if(h.entry_policy)$('models').textContent=h.entry_policy+' Фьючерсы и деривативы: средние ×1–3, сильные ×4–7. Маржа: средние ×2–3, сильные ×4–7 — биржевой лимит. Спот без плеча.';$('rejects').textContent=Object.entries(h.rejects||{}).map(([k,v])=>v+' × '+k).join('\n')||'Нет отклонённых кандидатов.';
+
+ $('start').disabled=busy||d.stopping||(d.running&&(!d.ready||!!h.entries_enabled));$('stop').disabled=busy||d.stopping||!d.running;$('start').textContent=d.running&&!h.entries_enabled?'▶ Продолжить':'▶ Старт';$('stop').textContent=d.stopping?'Останавливается…':'■ Стоп';$('save').disabled=busy||d.running;
+
+ const tbody=$('trades');tbody.replaceChildren();for(const p of h.positions||[]){const tr=document.createElement('tr');for(const v of [p.instrument_key,p.market==='spot'?'Без плеча':p.leverage==null?'Не подтверждено':(p.market==='margin'?'лимит ':'')+p.leverage+'×',p.timeframe||'—',p.strategy,p.side+' / '+p.quantity+' · вход '+(Number(p.entry_fraction||1)===0.5?'50%':'100%'),p.entry_notional_usdt==null?'—':Number(p.entry_notional_usdt).toFixed(2),p.entry_collateral_estimate_usdt==null?'—':Number(p.entry_collateral_estimate_usdt).toFixed(2),p.actual_entry||p.entry,p.stop,p.target,p.phase])cell(tr,v);tbody.append(tr)}if(!tbody.children.length){const tr=document.createElement('tr');cell(tr,'Нет открытых позиций в журнале.');tr.firstChild.colSpan=11;tbody.append(tr)}
+
+ $('groups').replaceChildren();for(const g of d.groups||[]){const e=document.createElement('div');e.className='group';e.textContent=g.id+' · серия '+g.number+' · закрыто '+g.count+'/10 · '+g.net+' USDT · '+(g.halt||g.strategies.join(' / '));$('groups').append(e)}
+
+ for(const p of (h.external_account||{}).positions||[]){const tr=document.createElement('tr');for(const v of [p.category+':'+p.symbol,'Другой владелец: наблюдение',p.side+' / '+p.size,p.avgPrice,p.stopLoss||'Не подтверждено',p.takeProfit||'Не подтверждено','Без управления этой копией'])cell(tr,v);tbody.append(tr)}
+
+ const logs=$('logs');logs.textContent=(d.logs||[]).map(r=>new Date(r.at*1000).toLocaleTimeString('ru-RU')+'  '+r.text).join('\n')||'Бот не запускался.';
+
+ if(!loaded){for(const f of fields)$(f).value=d.config[f];$('mode').value=d.preferences.mode;$('auto-resume').checked=d.preferences.auto_resume;loaded=true;if(!d.keys_configured[d.preferences.mode])$('settings').open=true}const settingsCard=$('settings')?.closest('section');if(settingsCard)settingsCard.hidden=!!d.running;keyStatus();}
+
+function keyStatus(){if(last)$('key-status').textContent=last.keys_configured[$('mode').value]?'Ключ и секрет сохранены. Можно оставить поля пустыми.':'Ключи не сохранены. Введите оба поля.'}
+
+async function refresh(manual=false){if(refreshing)return;refreshing=true;$('refresh').disabled=true;try{show(await request('/api/status'));if(connectionLost){message('Связь с панелью восстановлена.');connectionLost=false}else if(manual)message('Состояние обновлено.')}catch(e){connectionLost=true;$('state').textContent='НЕТ СВЯЗИ С ПАНЕЛЬЮ';$('start').disabled=true;$('stop').disabled=true;message(e.message,true)}finally{refreshing=false;$('refresh').disabled=false}}
+
+$('refresh').onclick=async()=>{
+  await refresh(true);
+  // Refresh can request a fresh, fail-closed exchange reconciliation, never bypass a halt.
+  if(!last || !last.running || last.stopping || !last.ready || last.health?.entries_enabled)return;
+  if(!confirm('Новые входы остановлены. Повторно сверить позиции, ордера и TP/SL на Bybit и возобновить входы ТОЛЬКО если все проверки пройдут?'))return;
+  const mode=last.mode;
+  if(mode==='REAL' && !confirm('Подтвердить повторное включение РЕАЛЬНЫХ сделок после успешной сверки Bybit?'))return;
+  busy=true;
+  try{show(await request('/api/start',{mode,confirm_real:mode==='REAL'}));message('Запрошена повторная сверка. Торговля возобновится только при подтверждённой безопасности.');}
+  catch(e){message(e.message,true)}finally{busy=false;await refresh()}
+};$('mode').onchange=keyStatus;
+
+$('start').onclick=async()=>{const mode=$('mode').value;if(!confirm((mode==='REAL'?'Разрешить реальные сделки, маржинальный заём и предусмотренные ботом переводы прибыли?':'Запустить сделки на DEMO?')+'\nНастройки должны быть предварительно сохранены.'))return;busy=true;try{show(await request('/api/start',{mode,confirm_real:mode==='REAL'}));message('Команда Старт принята. Следите за проверкой счёта, сигналами и журналом.')}catch(e){message(e.message,true)}finally{busy=false;await refresh()}};
+
+$('stop').onclick=async()=>{busy=true;try{show(await request('/api/stop',{}));message('Команда Стоп принята. Дождитесь статуса ОСТАНОВЛЕН. Позиции и ордера не отменяются.')}catch(e){message(e.message,true)}finally{busy=false;await refresh()}};
+
+$('config-form').onsubmit=async e=>{e.preventDefault();busy=true;try{const config={};for(const f of fields)config[f]=$(f).value;show(await request('/api/settings',{mode:$('mode').value,key:$('key').value.trim(),secret:$('secret').value.trim(),config,auto_resume:$('auto-resume').checked}));$('key').value='';$('secret').value='';message('Настройки сохранены. Для начала торговли нажмите Старт.')}catch(e){message(e.message,true)}finally{busy=false;await refresh()}};
+
+refresh();setInterval(()=>refresh(),3000);
+
+</script></body></html>
+
